@@ -1,0 +1,16 @@
+{
+  "name": "play-with-babel",
+  "version": "1.0.0",
+  "description": "A playground for experimenting with Babel parser and traverse",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.28.3",
+    "@babel/traverse": "^7.28.3",
+    "@babel/types": "^7.28.2"
+  },
+  "type": "module"
+}
