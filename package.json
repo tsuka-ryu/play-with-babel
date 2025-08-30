@@ -12,5 +12,8 @@
     "@babel/traverse": "^7.28.3",
     "@babel/types": "^7.28.2"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.2"
+  }
 }
