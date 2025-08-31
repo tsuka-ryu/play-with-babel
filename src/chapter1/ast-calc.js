@@ -48,6 +48,8 @@ const traverser = (node, exitVisitor, indent = 0) => {
   // console.log(res);
   console.log(`${" ".repeat(indent)}exit:${node.type} '${getCode(node)}'`);
   // ビジター関数を呼び出してその結果を返す
+  // valueを返す→BinaryExpression→ExpressionStatement→Program→Fileと伝搬していく
+  // traverserの実際の処理？はここで行われる、つまりexitの時、だからexitVisitorってオブジェクト名なんだ
   return exitVisitor[node.type](node, res, indent);
 };
 
