@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug ast-calc.js",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/chapter1/ast-calc.js",
+      "args": ["1 + 2 * (3 + 4)"],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Debug current file",
+      "type": "node",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Debug tree-recursive.js",
+      "type": "node", 
+      "request": "launch",
+      "program": "${workspaceFolder}/src/chapter1/tree-recursive.js",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}
