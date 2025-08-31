@@ -1,8 +1,10 @@
 import { parse } from "@babel/parser";
+import log from "babel-log";
 
 const ast = parse("1 + 2 * (3 + 4)");
 
-console.log(ast);
+log(ast);
+// console.log(ast);
 
 /** 結果
 Node {

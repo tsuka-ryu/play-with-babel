@@ -10,7 +10,8 @@
   "dependencies": {
     "@babel/parser": "^7.28.3",
     "@babel/traverse": "^7.28.3",
-    "@babel/types": "^7.28.2"
+    "@babel/types": "^7.28.2",
+    "babel-log": "^2.0.0"
   },
   "type": "module",
   "devDependencies": {
