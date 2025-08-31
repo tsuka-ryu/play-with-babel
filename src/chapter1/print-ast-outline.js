@@ -25,3 +25,38 @@ const replacer = (key, value) => {
 };
 
 console.log(JSON.stringify(ast, replacer, " "));
+
+/*
+{
+ "type": "File",
+ "program": {
+  "type": "Program",
+  "body": [
+   {
+    "type": "ExpressionStatement",
+    "expression": {
+     "type": "BinaryExpression",
+     "left": {
+      "type": "NumericLiteral"
+     },
+     "right": {
+      "type": "BinaryExpression",
+      "left": {
+       "type": "NumericLiteral"
+      },
+      "right": {
+       "type": "BinaryExpression",
+       "left": {
+        "type": "NumericLiteral"
+       },
+       "right": {
+        "type": "NumericLiteral"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
+*/

@@ -30,19 +30,22 @@ const traverser = (node, exitVisitor, indent = 0) => {
   const res = {};
   // Nodeの中身を舐める
   Object.keys(node).forEach((key) => {
-    // Node型じゃないのでたどらない
+    // Node型じゃないのでたどらない = traverseに関係のないkeyを無視する
     if (!isNode(node[key])) {
       return;
     }
 
     if (Array.isArray(node[key])) {
       // Node型の配列なのでそれぞれ再帰する
+      // 今回のコードだと、program.bodyだけは配列なのでここの分岐に入ってくる
       res[key] = node[key].map((v) => traverser(v, exitVisitor, indent + 2));
     } else {
       res[key] = traverser(node[key], exitVisitor, indent + 2);
     }
   });
 
+  // 再帰なので内側から計算される
+  // console.log(res);
   console.log(`${" ".repeat(indent)}exit:${node.type} '${getCode(node)}'`);
   // ビジター関数を呼び出してその結果を返す
   return exitVisitor[node.type](node, res, indent);
@@ -85,9 +88,246 @@ export const exitVisitor = {
   },
 };
 
+console.log(JSON.stringify(parse(code), null, " "));
 const results = traverser(parse(code), exitVisitor);
 results.forEach((r) => {
   console.log(r);
 });
 
 // node src/chapter1/ast-calc.js '1 + 2 * (3 + 4)'
+/*
+{
+ "type": "File",
+ "start": 0,
+ "end": 15,
+ "loc": {
+  "start": {
+   "line": 1,
+   "column": 0,
+   "index": 0
+  },
+  "end": {
+   "line": 1,
+   "column": 15,
+   "index": 15
+  }
+ },
+ "errors": [],
+ "program": {
+  "type": "Program",
+  "start": 0,
+  "end": 15,
+  "loc": {
+   "start": {
+    "line": 1,
+    "column": 0,
+    "index": 0
+   },
+   "end": {
+    "line": 1,
+    "column": 15,
+    "index": 15
+   }
+  },
+  "sourceType": "script",
+  "interpreter": null,
+  "body": [
+   {
+    "type": "ExpressionStatement",
+    "start": 0,
+    "end": 15,
+    "loc": {
+     "start": {
+      "line": 1,
+      "column": 0,
+      "index": 0
+     },
+     "end": {
+      "line": 1,
+      "column": 15,
+      "index": 15
+     }
+    },
+    "expression": {
+     "type": "BinaryExpression",
+     "start": 0,
+     "end": 15,
+     "loc": {
+      "start": {
+       "line": 1,
+       "column": 0,
+       "index": 0
+      },
+      "end": {
+       "line": 1,
+       "column": 15,
+       "index": 15
+      }
+     },
+     "left": {
+      "type": "NumericLiteral",
+      "start": 0,
+      "end": 1,
+      "loc": {
+       "start": {
+        "line": 1,
+        "column": 0,
+        "index": 0
+       },
+       "end": {
+        "line": 1,
+        "column": 1,
+        "index": 1
+       }
+      },
+      "extra": {
+       "rawValue": 1,
+       "raw": "1"
+      },
+      "value": 1
+     },
+     "operator": "+",
+     "right": {
+      "type": "BinaryExpression",
+      "start": 4,
+      "end": 15,
+      "loc": {
+       "start": {
+        "line": 1,
+        "column": 4,
+        "index": 4
+       },
+       "end": {
+        "line": 1,
+        "column": 15,
+        "index": 15
+       }
+      },
+      "left": {
+       "type": "NumericLiteral",
+       "start": 4,
+       "end": 5,
+       "loc": {
+        "start": {
+         "line": 1,
+         "column": 4,
+         "index": 4
+        },
+        "end": {
+         "line": 1,
+         "column": 5,
+         "index": 5
+        }
+       },
+       "extra": {
+        "rawValue": 2,
+        "raw": "2"
+       },
+       "value": 2
+      },
+      "operator": "*",
+      "right": {
+       "type": "BinaryExpression",
+       "start": 9,
+       "end": 14,
+       "loc": {
+        "start": {
+         "line": 1,
+         "column": 9,
+         "index": 9
+        },
+        "end": {
+         "line": 1,
+         "column": 14,
+         "index": 14
+        }
+       },
+       "left": {
+        "type": "NumericLiteral",
+        "start": 9,
+        "end": 10,
+        "loc": {
+         "start": {
+          "line": 1,
+          "column": 9,
+          "index": 9
+         },
+         "end": {
+          "line": 1,
+          "column": 10,
+          "index": 10
+         }
+        },
+        "extra": {
+         "rawValue": 3,
+         "raw": "3"
+        },
+        "value": 3
+       },
+       "operator": "+",
+       "right": {
+        "type": "NumericLiteral",
+        "start": 13,
+        "end": 14,
+        "loc": {
+         "start": {
+          "line": 1,
+          "column": 13,
+          "index": 13
+         },
+         "end": {
+          "line": 1,
+          "column": 14,
+          "index": 14
+         }
+        },
+        "extra": {
+         "rawValue": 4,
+         "raw": "4"
+        },
+        "value": 4
+       },
+       "extra": {
+        "parenthesized": true,
+        "parenStart": 8
+       }
+      }
+     }
+    }
+   }
+  ],
+  "directives": []
+ },
+ "comments": []
+}
+*/
+/*
+enter:File '1 + 2 * (3 + 4)'
+  enter:Program '1 + 2 * (3 + 4)'
+    enter:ExpressionStatement '1 + 2 * (3 + 4)'
+      enter:BinaryExpression '1 + 2 * (3 + 4)'
+        enter:NumericLiteral '1'
+        exit:NumericLiteral '1'
+         value: 1
+        enter:BinaryExpression '2 * (3 + 4)'
+          enter:NumericLiteral '2'
+          exit:NumericLiteral '2'
+           value: 2
+          enter:BinaryExpression '3 + 4'
+            enter:NumericLiteral '3'
+            exit:NumericLiteral '3'
+             value: 3
+            enter:NumericLiteral '4'
+            exit:NumericLiteral '4'
+             value: 4
+          exit:BinaryExpression '3 + 4'
+           3 + 4
+        exit:BinaryExpression '2 * (3 + 4)'
+         2 * 7
+      exit:BinaryExpression '1 + 2 * (3 + 4)'
+       1 + 14
+    exit:ExpressionStatement '1 + 2 * (3 + 4)'
+  exit:Program '1 + 2 * (3 + 4)'
+exit:File '1 + 2 * (3 + 4)'
+1 + 2 * (3 + 4) = 15
+*/
