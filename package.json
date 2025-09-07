@@ -8,10 +8,12 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "@babel/core": "^7.28.4",
     "@babel/parser": "^7.28.3",
     "@babel/traverse": "^7.28.3",
     "@babel/types": "^7.28.2",
-    "babel-log": "^2.0.0"
+    "babel-log": "^2.0.0",
+    "prettier": "^3.6.2"
   },
   "type": "module",
   "devDependencies": {
